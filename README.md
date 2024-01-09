@@ -1,3 +1,3 @@
 # winterPJ
-## React + Spring Boot 
+## React [Front]
 ### 게시판
