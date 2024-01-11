@@ -10,7 +10,7 @@ function Posting() {
         event.preventDefault();
         const postData = {
             title: title,
-            content: content
+            body: content
         };
 
         fetch("http://back.mongjo.xyz/post/create", {
