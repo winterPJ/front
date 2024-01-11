@@ -6,7 +6,8 @@ export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    function registerHandler() {
+    function registerHandler(event) {
+        event.preventDefault();
 
         if(email == "" || password == "" ) {
             alert("모든 정보를 입력해주세요!");
@@ -26,6 +27,12 @@ export default function Login() {
         .then((res) => res.json())
         .then((res) => {
             console.log(res);
+            if(res["success"] == false) {
+                alert(res["data"]);
+            } else {
+                alert(res["data"]);
+                
+            }
         });
     }
 

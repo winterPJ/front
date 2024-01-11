@@ -8,8 +8,8 @@ export default function SignUp() {
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
 
-    function registerHandler() {
-
+    function registerHandler(event) {
+        event.preventDefault();
         if(email == "" || nickname == "" || password == "" || passwordConfirm == "" ) {
             alert("모든 정보를 입력해주세요!");
             return;
