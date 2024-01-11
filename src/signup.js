@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
 
 export default function SignUp() {
@@ -6,6 +7,12 @@ export default function SignUp() {
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const navigate = useNavigate();
+
+  const goToAuthentic = () => {
+    navigate("/emailauthentication");
+    navigate(`/emailauthentication?email=${email}`);
+  }
 
   function registerHandler(event) {
     event.preventDefault();
@@ -36,15 +43,16 @@ export default function SignUp() {
         passwordConfirm: passwordConfirm,
       }),
     })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        if (res["success"] == false) {
-          alert(res["data"]);
-        } else {
-          alert(res["data"]);
-        }
-      });
+    .then((res) => res.json())
+    .then((res) => {
+      console.log(res);
+      if (res["success"] == false) {
+        alert(res["data"]);
+      } else {
+        alert(res["data"]);
+        goToAuthentic();
+      }
+    });
   }
 
   return (
@@ -74,7 +82,7 @@ export default function SignUp() {
           />
           <input type="submit" value="회원가입" />
           <p>
-            <a href="/">로그인 화면으로 돌아가기</a>
+            <a href="/">메인 화면으로 돌아가기</a>
           </p>
         </form>
       </div>

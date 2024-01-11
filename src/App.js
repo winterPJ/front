@@ -6,6 +6,7 @@ import Login from "./login";
 import SignUp from "./signup";
 import DetailPost from "./detailpost";
 import ProfileInfo from "./ProfileInfo";
+import EmailAuthentication from "./EmailAuthentication";
 
 const App = () => {
   useEffect(() => {
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/detailpost/:postId" element={<DetailPost />} />
         <Route path="/profileinfo" element={<ProfileInfo />} />
+        <Route path="/emailauthentication" element={<EmailAuthentication />} />
       </Routes>
     </div>
   );
