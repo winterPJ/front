@@ -30,7 +30,7 @@ function MainPage() {
     fetch("http://back.mongjo.xyz/post/get")
       .then((response) => response.json())
       .then((data) => {
-        setPosts(data)
+        setPosts(data);
       })
       .catch((error) => console.error("Fetching posts failed:", error));
   }, []);
@@ -90,11 +90,11 @@ function MainPage() {
               </div>
             ))}
           {/* {isLoggedIn && ( */}
-            <div className="writeButtonContainer">
-              <button onClick={goToPostingPage} className="writeButton">
-                글쓰기
-              </button>
-            </div>
+          <div className="writeButtonContainer">
+            <button onClick={goToPostingPage} className="writeButton">
+              글쓰기
+            </button>
+          </div>
           {/*)}*/}
         </div>
         <HotPosts />
