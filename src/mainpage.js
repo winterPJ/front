@@ -37,6 +37,15 @@ function MainPage() {
   }, []);
 
   const goToPostingPage = () => {
+    fetch("http://back.mongjo.xyz/test/session", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        
+      })
     navigate("/posting");
   };
 
