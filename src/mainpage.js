@@ -68,9 +68,7 @@ function MainPage() {
 
   return (
     <div>
-      {/* {isLoggedIn ? <Navbar /> : <NavbarLogin />} */}
-      <Navbar />
-      <NavbarLogin />
+    {isLoggedIn ? <Navbar /> : <NavbarLogin />}
 
       <div className="pageLayout">
         <MemberList />
@@ -89,13 +87,13 @@ function MainPage() {
                 <div className="postTime">{calcTime(post.created_at)}</div>
               </div>
             ))}
-          {/* {isLoggedIn && ( */}
+          {isLoggedIn && (
           <div className="writeButtonContainer">
             <button onClick={goToPostingPage} className="writeButton">
               글쓰기
             </button>
           </div>
-          {/*)}*/}
+          )}
         </div>
         <HotPosts />
       </div>
