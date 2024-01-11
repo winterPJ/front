@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './EmailAuthentication.css';
+import { useNavigate } from "react-router-dom";
 
 export default function EmailAuthentication() {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const email = searchParams.get('email');
     const [auth_code, setAuth_code] = useState("");
+
+    const navigate = useNavigate();
 
     const sendAuthCode = () => {
         fetch(`http://back.mongjo.xyz/auth/send`, {
@@ -44,7 +47,12 @@ export default function EmailAuthentication() {
         .then((res) => res.json())
         .then((res) => {
             console.log(res);
-            alert(res["data"]);
+            if (res["success"] == false) {
+                alert(res["data"]);
+            } else {
+                alert(res["data"]);
+                navigate("/");
+            }
         });
     };
 

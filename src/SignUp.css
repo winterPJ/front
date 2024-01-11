@@ -21,7 +21,7 @@ body {
 .login-wrapper {
     width: 400px;
     height: 350px;
-    padding: 40px;
+    padding: 0px;
     box-sizing: border-box;
 }
 
