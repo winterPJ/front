@@ -21,11 +21,30 @@ export default function EmailAuthentication() {
         .then((res) => res.json())
         .then((res) => {
             console.log(res);
-            if (res["success"] == false) {
-                alert(res["data"]);
-            } else {
-                alert(res["data"]);
-            }
+            alert(res["data"]);
+        });
+    };
+
+    const Completion = () => {
+        if (auth_code === "" ) {
+            alert("모든 정보를 입력해주세요!");
+            return;
+        }
+
+        fetch(`http://back.mongjo.xyz/auth/verify`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: email,
+                auth_code: auth_code,
+            }),
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            console.log(res);
+            alert(res["data"]);
         });
     };
 
@@ -38,9 +57,9 @@ export default function EmailAuthentication() {
                 <input id="sendCodeButton" type="submit" value="인증코드 발송" onClick={sendAuthCode}/>
             </div>
             <div className="auth-code-input">
-                <input type="text" placeholder="Auth_code" />
+                <input type="text" placeholder="Auth_code" onChange={(e) => setAuth_code(e.target.value)}/>
             </div>
-            <input id="submitButton" type="submit" value="완료"/>
+            <input id="submitButton" type="submit" value="완료" onClick={Completion}/>
         </div>
     );
 }
