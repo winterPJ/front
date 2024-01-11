@@ -21,6 +21,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
     max-height: 600px;
+    position: relative;
 }
 
 .post {
@@ -61,8 +62,9 @@
 }
 
 .writeButtonContainer {
-    text-align: center;
-    padding: 20px;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
 }
 
 .writeButton {

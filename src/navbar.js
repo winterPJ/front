@@ -11,7 +11,7 @@ function Navbar() {
     };
 
     const goToProfile = () => {
-        navigate('/profile');
+        navigate('/profileinfo');
     };
 
     /* const handleLogout = () => {
