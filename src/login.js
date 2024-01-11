@@ -16,6 +16,7 @@ export default function Login() {
 
     fetch(`http://back.mongjo.xyz/user/login`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },

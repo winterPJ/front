@@ -1,0 +1,32 @@
+.member {
+    background-color: #f9f9f9; 
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); 
+    overflow-y: auto;
+    transition: box-shadow 0.3s ease;
+}
+
+.member h3 {
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 1.3em;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 15px;
+}
+
+.member ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.member li {
+    background-color: #ffffff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}

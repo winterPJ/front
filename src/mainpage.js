@@ -2,24 +2,23 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavbarLogin from "./navbarlogin";
 import Navbar from "./navbar";
+import MemberList from "./memberlist";
+import HotPosts from "./hotpost";
 import "./mainpage.css";
 
 function MainPage() {
   const [posts, setPosts] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [hotPosts, setHotPosts] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://back.mongjo.xyz/user/check", {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((res) => {
-        console.info(res["success"] + "ss");
+        console.info(res["data"]);
         res["success"] ? setIsLoggedIn(true) : setIsLoggedIn(false);
       });
   }, []);
@@ -32,20 +31,12 @@ function MainPage() {
       .then((response) => response.json())
       .then((data) => {
         setPosts(data);
-        const sortedPosts = [...data].sort(
-          (a, b) => b.comment_cnt - a.comment_cnt
-        );
-        setHotPosts(sortedPosts.slice(0, 3));
       })
       .catch((error) => console.error("Fetching posts failed:", error));
   }, []);
 
   const goToPostingPage = () => {
     navigate("/posting");
-  };
-
-  const goToHotPostDetail = (postId) => {
-    navigate(`/detailpost/${postId}`);
   };
 
   const goToDetailPage = (postId) => {
@@ -77,14 +68,14 @@ function MainPage() {
 
   return (
     <div>
-      {isLoggedIn ? <Navbar /> : <NavbarLogin />}
-      {/* <Navbar />
-            <NavbarLogin /> */}
+      {/* {isLoggedIn ? <Navbar /> : <NavbarLogin />} */}
+      <Navbar />
+      <NavbarLogin />
 
       
 
       <div className="pageLayout">
-        <div className="sidebar">게시판 참여자 목록</div>
+        <MemberList />
         <div className="mainContent">
           <h3>게시글 현황</h3>
           {Array.isArray(posts) &&
@@ -100,28 +91,15 @@ function MainPage() {
                 <div className="postTime">{calcTime(post.created_at)}</div>
               </div>
             ))}
-          {isLoggedIn && (
-            <div className="writeButtonContainer">
-              <button onClick={goToPostingPage} className="writeButton">
-                글쓰기
-              </button>
-            </div>
-          )}
+          {/* {isLoggedIn && ( */}
+          <div className="writeButtonContainer">
+            <button onClick={goToPostingPage} className="writeButton">
+              글쓰기
+            </button>
+          </div>
+          {/*)}*/}
         </div>
-        <div className="sidebar">
-          <h4>핫게</h4>
-          <ul>
-            {hotPosts.map((post, index) => (
-              <li
-                key={post.id}
-                onClick={() => goToHotPostDetail(post.id)}
-                style={{ cursor: "pointer" }}
-              >
-                {index + 1}등: {post.title}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <HotPosts />
       </div>
     </div>
   );
