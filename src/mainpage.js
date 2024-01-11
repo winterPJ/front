@@ -81,6 +81,8 @@ function MainPage() {
       {/* <Navbar />
             <NavbarLogin /> */}
 
+      
+
       <div className="pageLayout">
         <div className="sidebar">게시판 참여자 목록</div>
         <div className="mainContent">
