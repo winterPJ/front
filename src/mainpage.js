@@ -13,13 +13,11 @@ function MainPage() {
   useEffect(() => {
     fetch("http://back.mongjo.xyz/user/check", {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((res) => {
-        console.info(res["success"] + "ss");
+        console.info(res["data"]);
         res["success"] ? setIsLoggedIn(true) : setIsLoggedIn(false);
       });
   }, []);

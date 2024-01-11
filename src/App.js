@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import MainPage from "./mainpage";
 import Posting from "./posting";
@@ -8,6 +8,10 @@ import DetailPost from "./detailpost";
 import ProfileInfo from "./ProfileInfo";
 
 const App = () => {
+  useEffect(() => {
+    document.cookie = `domain=.mongjo.xyz`;
+  }, []);
+
   return (
     <div className="App">
       <Routes>
