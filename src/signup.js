@@ -56,7 +56,7 @@ export default function SignUp() {
                             type="submit"
                             value="회원가입"
                             />
-                        <p><a href="/">로그인 화면으로 돌아가기</a></p>
+                        <p><a href="/">메인 화면으로 돌아가기</a></p>
                     </form>
             </div>
         </div>
