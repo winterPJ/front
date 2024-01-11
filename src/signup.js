@@ -7,7 +7,8 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
-  function registerHandler() {
+  function registerHandler(event) {
+    event.preventDefault();
     if (
       email == "" ||
       nickname == "" ||
