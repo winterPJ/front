@@ -6,7 +6,7 @@ import Login from "./login";
 import SignUp from "./signup";
 import DetailPost from "./detailpost";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <Routes>
@@ -18,6 +18,6 @@ function App() {
       </Routes>
     </div>
   );
-}
+};
 
 export default App;

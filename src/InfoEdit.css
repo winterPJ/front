@@ -1,0 +1,16 @@
+.edit {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.edit2 {
+    display: flex;
+    justify-content: center;
+}
+
+.edit input {
+    margin-left: auto; 
+    display: block;    
+  }
