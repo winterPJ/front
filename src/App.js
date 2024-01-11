@@ -9,7 +9,7 @@ import ProfileInfo from "./ProfileInfo";
 
 const App = () => {
   useEffect(() => {
-    document.cookie = `domain=.mongjo.xyz`;
+    document.cookie = "domain=.mongjo.xyz";
   }, []);
 
   return (
