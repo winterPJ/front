@@ -14,7 +14,12 @@ export default function ProfileInfo(props) {
 
   const navigate = useNavigate();
   const handleLogout = () => {
-    sessionStorage.clear();
+    fetch("http://back.mongjo.xyz/user/logout",
+    {
+      method: "POST"
+    }).then((res) => res.json())
+    .then((res) => alert(res.data))
+    .catch((error) => alert(error))
     navigate("/");
   };
 
