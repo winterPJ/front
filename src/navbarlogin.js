@@ -14,7 +14,7 @@ function NavbarLogin() {
   };
 
   const goToSignUpPage = () => {
-    navigate("/SignUp");
+    navigate("/signup");
   };
 
   return (
