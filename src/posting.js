@@ -9,6 +9,7 @@ function Posting() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const postData = {
+            user_id: 14,
             title: title,
             body: content
         };
