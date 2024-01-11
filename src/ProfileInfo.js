@@ -16,7 +16,8 @@ export default function ProfileInfo(props) {
   const handleLogout = () => {
     fetch("http://back.mongjo.xyz/user/logout",
     {
-      method: "POST"
+      method: "POST",
+      credentials: "include"
     }).then((res) => res.json())
     .then((res) => alert(res.data))
     .catch((error) => alert(error))

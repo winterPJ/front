@@ -9,7 +9,6 @@ function Posting() {
     const handleSubmit = (event) => {
         event.preventDefault();
     
-
         fetch("http://back.mongjo.xyz/post/create", {
             method: 'POST',
             credentials: "include",
