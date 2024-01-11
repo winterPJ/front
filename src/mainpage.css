@@ -22,6 +22,15 @@
     overflow-y: auto;
     max-height: 600px;
     position: relative;
+    padding-top: 20px;
+}
+
+.mainContent h3 {
+    font-size: 1.5em;
+    color: #37474f;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-top: 0;
+    margin-bottom: 10px;
 }
 
 .post {
@@ -31,18 +40,6 @@
     border-radius: 8px;
     transition: background-color 0.3s;
     position: relative;
-}
-
-.postTime {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-    font-size: 0.8em;
-    color: #666;
-}
-
-.post:hover {
-    background-color: #e0e0e0;
 }
 
 .post h4 {
@@ -55,6 +52,18 @@
     color: #546e7a;
 }
 
+.post:hover {
+    background-color: #e0e0e0;
+}
+
+.postTime {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 0.8em;
+    color: #666;
+}
+
 .commentCount {
     margin-top: 10px;
     font-size: 0.9em;
@@ -64,12 +73,13 @@
 .writeButtonContainer {
     position: absolute;
     right: 20px;
-    bottom: 20px;
+    top: 10px;
+    z-index: 5;
 }
 
 .writeButton {
     padding: 10px 20px;
-    background-color: #1e88e5;
+    background-color: grey;
     color: white;
     border: none;
     border-radius: 5px;
