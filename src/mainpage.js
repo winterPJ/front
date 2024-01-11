@@ -8,7 +8,7 @@ import "./mainpage.css";
 
 function MainPage() {
   const [posts, setPosts] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,15 +18,16 @@ function MainPage() {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.info(res["data"]);
-        res["success"] ? setIsLoggedIn(true) : setIsLoggedIn(false);
+        console.log(res);
+        setIsLoggedIn(res["success"]);
+      })
+      .catch((error) => {
+        console.error("Checking login status failed:", error);
+        setIsLoggedIn(false);
       });
   }, []);
 
   useEffect(() => {
-    /* const sessionToken = sessionStorage.getItem('sessionToken');
-        setIsLoggedIn(!!sessionToken); */
-
     fetch("http://back.mongjo.xyz/post/get")
       .then((response) => response.json())
       .then((data) => {

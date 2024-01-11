@@ -10,10 +10,10 @@ function Posting() {
         event.preventDefault();
         const postData = {
             title: title,
-            content: content
+            body: content
         };
 
-        fetch("http://your-api-endpoint.com/posts", {
+        fetch("http://back.mongjo.xyz/post/create", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -22,10 +22,10 @@ function Posting() {
         })
         .then(response => response.json())
         .then(data => {
-            console.log("글 작성 완료:", data);
+            alert(data.data);
         })
         .catch(error => {
-            console.error("글 작성 실패:", error);
+            alert("글 작성 실패:", error);
         });
     };
 
