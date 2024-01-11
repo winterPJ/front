@@ -68,7 +68,7 @@ function MainPage() {
 
   return (
     <div>
-    {isLoggedIn ? <Navbar /> : <NavbarLogin />}
+      {isLoggedIn ? <Navbar /> : <NavbarLogin />}
 
       <div className="pageLayout">
         <MemberList />
@@ -88,11 +88,11 @@ function MainPage() {
               </div>
             ))}
           {isLoggedIn && (
-          <div className="writeButtonContainer">
-            <button onClick={goToPostingPage} className="writeButton">
-              글쓰기
-            </button>
-          </div>
+            <div className="writeButtonContainer">
+              <button onClick={goToPostingPage} className="writeButton">
+                글쓰기
+              </button>
+            </div>
           )}
         </div>
         <HotPosts />
