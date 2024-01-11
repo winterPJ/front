@@ -43,16 +43,16 @@ export default function SignUp() {
         passwordConfirm: passwordConfirm,
       }),
     })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        if (res["success"] == false) {
-          alert(res["data"]);
-        } else {
-          alert(res["data"]);
-          goToAuthentic();
-        }
-      });
+    .then((res) => res.json())
+    .then((res) => {
+      console.log(res);
+      if (res["success"] == false) {
+        alert(res["data"]);
+      } else {
+        alert(res["data"]);
+        goToAuthentic();
+      }
+    });
   }
 
   return (
