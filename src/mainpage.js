@@ -49,7 +49,19 @@ function MainPage() {
     navigate("/posting");
   };
 
-  const goToDetailPage = (postId) => {
+  const goToDetailPage = (postId, userId) => { 
+    fetch("http://back.mongjo.xyz/user/matching/post",{
+        method : "POST",
+        credentials : "include",
+        headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id : postId,
+            user_id : userId,
+          }),
+    }).then((res) => res.json())
+    .then((res)=> console.log(res.success))
     navigate(`/detailpost/${postId}`);
   };
 
@@ -89,7 +101,7 @@ function MainPage() {
               <div
                 key={post.id}
                 className="post"
-                onClick={() => goToDetailPage(post.id)}
+                onClick={() => goToDetailPage(post.id, post.user_id)}
               >
                 <h4>{post.title}</h4>
                 <p>{post.body}</p>
