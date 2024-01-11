@@ -6,15 +6,13 @@ import './mainpage.css';
 
 function MainPage() {
     const [posts, setPosts] = useState([]);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(3);
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
     const [hotPosts, setHotPosts] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const sessionToken = sessionStorage.getItem('sessionToken');
-        setIsLoggedIn(!!sessionToken);
+        /* const sessionToken = sessionStorage.getItem('sessionToken');
+        setIsLoggedIn(!!sessionToken); */
 
         fetch("http://back.mongjo.xyz/post/get")
             .then(response => response.json())
@@ -59,26 +57,17 @@ function MainPage() {
         }
     };
 
-    const indexOfLastPost = currentPage * postsPerPage;
-    const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(posts.length / postsPerPage); i++) {
-        pageNumbers.push(i);
-    }
-
     return (
         <div>
             {isLoggedIn ? <Navbar /> : <NavbarLogin />}
+            { /* <Navbar />
+            <NavbarLogin /> */ }
 
             <div className="pageLayout">
                 <div className="sidebar">게시판 참여자 목록</div>
                 <div className="mainContent">
                     <h3>게시글 현황</h3>
-                    {Array.isArray(currentPosts) && currentPosts.map(post => (
+                    {Array.isArray(posts) && posts.map(post => (
                         <div key={post.id} className="post" onClick={() => goToDetailPage(post.id)}>
                             <h4>{post.title}</h4>
                             <p>{post.body}</p>
@@ -90,6 +79,11 @@ function MainPage() {
                             </div>
                         </div>
                     ))}
+                    {isLoggedIn && (
+                    <div className="writeButtonContainer">
+                        <button onClick={goToPostingPage} className="writeButton">글쓰기</button>
+                    </div>
+            )}
                 </div>
                 <div className="sidebar">
                     <h4>핫게</h4>
@@ -102,20 +96,6 @@ function MainPage() {
                         </ul>
                 </div>
             </div>
-
-            <div className="pagination">
-                {pageNumbers.map(number => (
-                    <button key={number} onClick={() => paginate(number)}>
-                        {number}
-                    </button>
-                ))}
-            </div>
-
-            {isLoggedIn && (
-                <div className="writeButtonContainer">
-                    <button onClick={goToPostingPage} className="writeButton">글쓰기</button>
-                </div>
-            )}
         </div>
     );
 }

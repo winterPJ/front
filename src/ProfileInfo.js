@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import "./ProfileInfo.css";
 
 export default function ProfileInfo(props) {
   const [email, setEmail] = useState('');
   const [id, setId] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [profileImage, setProfileImage] = useState(null); // 추가
+  const [nickname, setNickname] = useState('')
 
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -17,29 +15,6 @@ export default function ProfileInfo(props) {
     sessionStorage.clear(); // 세션 클리어
     navigate('/'); // 홈 페이지로 이동
   };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-  
-    // 이미지를 FormData로 감싸서 서버에 전송
-    const formData = new FormData();
-    formData.append('profileImage', file);
-  
-    fetch('http://back.mongjo.xyz/upload-profile-image', {
-      method: 'POST',
-      body: formData,
-    })
-    .then(response => response.json())
-    .then(data => {
-      // 서버에서 이미지 업로드 성공 후 반환된 경로를 사용하여 이미지 업데이트
-      setProfileImage(data.imageUrl);
-    })
-    .catch(error => {
-      console.error('Error uploading profile image:', error);
-    });
-  };
-  
-
 
   useEffect(() => {
     fetch("http://back.mongjo.xyz/")
@@ -58,8 +33,7 @@ export default function ProfileInfo(props) {
     navigate('/InfoEdit', {
       state: {
         email,
-        id,
-        profileImage, 
+        id, 
       },
     });
   };
@@ -67,8 +41,9 @@ export default function ProfileInfo(props) {
 
   return (
     <div className="Mypage">
-      <img className="profileimg" src={profileImage ? URL.createObjectURL(profileImage) : "img.jpg"} alt="profile" />
-      <input type="file" onChange={handleFileChange} />
+      <img src="/images/img.jpg"
+           alt="Profile" 
+           className="profilePicture" />
       <h4>{nickname} 님! 환영합니다.</h4>
 
       <div className="email">
