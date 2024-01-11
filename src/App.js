@@ -1,22 +1,22 @@
-import logo from "./logo.svg";
+import React from "react";
+import { Route, Routes, Link } from "react-router-dom";
 import "./App.css";
+import ProfileInfo from "./ProfileInfo";
+import InfoEdit from "./InfoEdit"; 
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>하아핸ㅇ흥내한애한애하ㅐㄴㅇㅎ</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div style={{ textAlign: "center" }}>
+        <h2 style={{ padding: "20px", fontSize: "40px", fontFamily: "Poppins" }}>
+          <Link to="/">My Page</Link>
+        </h2>
+        <hr />
+
+        <Routes>
+          <Route path="/" element={<ProfileInfo />} />
+          <Route path="/InfoEdit" element={<InfoEdit />} />
+        </Routes>
+      </div>
   );
 }
 
