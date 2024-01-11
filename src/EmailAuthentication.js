@@ -1,15 +1,19 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import './EmailAuthentication.css';
 
 export default function EmailAuthentication() {
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const email = searchParams.get('email');
+
     return (
-        <div   div className="container">
-            <h1>이메일 인증</h1>
+        <div className="container">
+            <h2>이메일 인증</h2>
             <div className="row">
-                <div className="input-container">
-                    <input type="email" placeholder="Email" />
-                </div>
-                <button id="sendCodeButton">코드 발송</button>
+                {/* Display the email */}
+                <p>Email: {email}</p>
+                <button id="sendCodeButton">인증번호 발송</button>
             </div>
             <div className="auth-code-input">
                 <input type="text" placeholder="Auth_code" />

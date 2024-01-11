@@ -11,6 +11,7 @@ export default function SignUp() {
 
   const goToAuthentic = () => {
     navigate("/emailauthentication");
+    navigate(`/emailauthentication?email=${email}`);
   }
 
   function registerHandler(event) {
