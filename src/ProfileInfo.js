@@ -14,12 +14,25 @@ export default function ProfileInfo(props) {
 
   const navigate = useNavigate();
   const handleLogout = () => {
-    sessionStorage.clear();
+    
+    setEmail('');
+    setId('');
+    setNickname('');
+    setPost('');
+    setCount('');
+    setIsLoggedIn(false);
+    
     navigate("/");
   };
 
   useEffect(() => {
-    fetch("http://back.mongjo.xyz/user/13")
+    fetch("http://back.mongjo.xyz/user/get/info", {
+      method: "GET",
+      credentials: "include", 
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setEmail(data.email);
@@ -29,7 +42,7 @@ export default function ProfileInfo(props) {
         setCount(data.comment_cnt);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        console.error("데이터를 불러오는 중 에러 발생:", error);
       });
   }, []);
 

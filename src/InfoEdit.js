@@ -50,29 +50,37 @@ export default function InfoEdit() {
 
   const handleNicknameSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      const response = await fetch("http://back.mongjo.xyz/user/13", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nickname: nickname,
-        }),
-      });
-
-      if (response.ok) {
-        console.log("Nickname updated successfully!");
-        setModalMessage('닉네임이 성공적으로 변경되었습니다.');
-        setShowModal(true);
-      } else {
-        console.error("Failed to update nickname.");
-      }
-    } catch (error) {
-      console.error("Error updating nickname:", error);
+  
+    // Additional validation for empty nickname
+    if (!nickname) {
+      console.error("Nickname cannot be empty.");
+      return;
     }
-  };
+  
+    try {
+        const response = await fetch("http://back.mongjo.xyz/user/changeinfo/nicknam", {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nickname: nickname,
+          }),
+        });
+      
+        const res = await response.json();
+        console.log(res);
+      
+        if (res.success === false) {
+          alert(res.data);
+        } else {
+          alert(res.data);
+        }
+      } catch (error) {
+        console.error("Error during fetch:", error);
+      }
+    }
 
   const handlePasswordSubmit = async (e) => {
     e.preventDefault();
@@ -84,8 +92,9 @@ export default function InfoEdit() {
     }
 
     try {
-      const response = await fetch("http://back.mongjo.xyz/user/13", {
+      const response = await fetch("http://back.mongjo.xyz/user/changeinfo/password", {
         method: "POST",
+        credential : "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -94,16 +103,17 @@ export default function InfoEdit() {
         }),
       });
 
-      if (response.ok) {
-        console.log("Password updated successfully!");
-        setModalMessage('비밀번호가 성공적으로 변경되었습니다.');
-        setShowModal(true);
-      } else {
-        console.error("Failed to update password.");
+      const res = await response.json();
+        console.log(res);
+      
+        if (res.success === false) {
+          alert(res.data);
+        } else {
+          alert(res.data);
+        }
+      } catch (error) {
+        console.error("Error during fetch:", error);
       }
-    } catch (error) {
-      console.error("Error updating password:", error);
-    }
   };
 
   return (
