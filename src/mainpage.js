@@ -100,6 +100,11 @@ function MainPage() {
         </div>
         <div className="mainContent">
           <h3>게시글 현황</h3>
+          {isLoggedIn && (
+            <button onClick={goToPostingPage} className="writeButton">
+                글쓰기
+            </button>
+          )}
           {Array.isArray(posts) &&
             posts.map((post) => (
               <div
@@ -113,13 +118,6 @@ function MainPage() {
                 <div className="postTime">{calcTime(post.created_at)}</div>
               </div>
             ))}
-          {isLoggedIn && (
-            <div className="writeButtonContainer">
-              <button onClick={goToPostingPage} className="writeButton">
-                글쓰기
-              </button>
-            </div>
-          )}
         </div>
         <div className="hotPosts">
           <HotPosts />
