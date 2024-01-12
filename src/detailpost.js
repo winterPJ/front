@@ -81,10 +81,10 @@ function DetailPost() {
   useEffect(() => {
     fetch(`http://back.mongjo.xyz/user/matching/post`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
       body: JSON.stringify({ post_id: postId }),
     })
       .then((res) => res.json())
@@ -93,6 +93,23 @@ function DetailPost() {
 
   const handleEditClick = () => {
     navigate(`/editpost/${postId}`);
+  };
+
+  const handleDeleteClick = () => {
+    if (window.confirm("정말로 삭제하시겠습니까?")) {
+      fetch(`http://back.mongjo.xyz/post/delete/${postId}`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          alert(res.data);
+          navigate("/");
+        });
+    }
   };
 
   return (
@@ -109,7 +126,11 @@ function DetailPost() {
                   <span className="author">글쓴이: {nickname}</span>
                   <span className="postTime">{post.created_at}</span>
                   {canEdit && (
-                    <button onClick={handleEditClick}>수정하기</button>
+                    <div>
+                      <button onClick={handleEditClick}>수정</button>
+
+                      <button onClick={handleDeleteClick}>삭제</button>
+                    </div>
                   )}
                 </div>
               </div>
@@ -127,6 +148,20 @@ function DetailPost() {
                   ))}
                 </ul>
               </div>
+              {isLoggedIn && (
+                <div className="commentForm">
+                  <form className="formArea">
+                    <textarea
+                      className="commentArea"
+                      placeholder="댓글을 입력하세요."
+                      onChange={(e) => setNewComment(e.target.value)}
+                    />
+                    <button className="commentBtn" type="submit">
+                      등록
+                    </button>
+                  </form>
+                </div>
+              )}
             </div>
           ) : (
             <p>Loading...</p>
