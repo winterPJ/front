@@ -86,7 +86,7 @@ function DetailPost() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ post_id: postId }),
+      body: JSON.stringify({ id: postId }),
     })
       .then((res) => res.json())
       .then((res) => {
@@ -116,6 +116,25 @@ function DetailPost() {
     }
   };
 
+  const handleCreateComment = () => {
+    fetch(`http://back.mongjo.xyz/post/comment/create`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        post_id: postId,
+        body: newComment,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        alert(res.data);
+        window.location.reload();
+      });
+  };
+
   return (
     <div>
       {isLoggedIn ? <Navbar /> : <NavbarLogin />}
@@ -127,15 +146,17 @@ function DetailPost() {
               <div className="titleBox">
                 <h4>{post.title}</h4>
                 <div className="postDetails">
-                  <span className="author">글쓴이: {nickname}</span>
-                  <span className="postTime">{post.created_at}</span>
-                  {canEdit && (
+                  <div className="tttt">
+                    <span className="author">글쓴이: {nickname}</span>
+                    <span className="postTime">{post.created_at}</span>
+                  </div>
+                  {canEdit ? (
                     <div>
                       <button onClick={handleEditClick}>수정</button>
 
                       <button onClick={handleDeleteClick}>삭제</button>
                     </div>
-                  )}
+                  ) : null}
                 </div>
               </div>
               <div className="contentBox">
@@ -160,7 +181,11 @@ function DetailPost() {
                       placeholder="댓글을 입력하세요."
                       onChange={(e) => setNewComment(e.target.value)}
                     />
-                    <button className="commentBtn" type="submit">
+                    <button
+                      className="commentBtn"
+                      type="submit"
+                      onClick={handleCreateComment}
+                    >
                       등록
                     </button>
                   </form>

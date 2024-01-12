@@ -53,10 +53,16 @@
 .postTime {
   margin-top: 10px;
   margin-bottom: 20px;
+
   font-size: 0.8em;
   color: #666;
   text-align: right;
   display: inline-block;
+}
+.tttt {
+  display: flex;
+  flex-direction: column;
+  background-color: bisque;
 }
 
 .postDetails {
