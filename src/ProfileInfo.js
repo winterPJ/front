@@ -10,10 +10,17 @@ export default function ProfileInfo(props) {
   const [nickname, setNickname] = useState("");
   const [post_cnt, setPost] = useState("");
   const [comment_cnt, setCount] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const navigate = useNavigate();
   const handleLogout = () => {
-    sessionStorage.clear();
+    fetch("http://back.mongjo.xyz/user/logout",
+    {
+      method: "POST",
+      credentials: "include"
+    }).then((res) => res.json())
+    .then((res) => alert(res.data))
+    .catch((error) => alert(error))
     navigate("/");
   };
 
@@ -46,8 +53,7 @@ export default function ProfileInfo(props) {
 
   return (
     <div>
-      {/* {isLoggedIn ? <Navbar /> : <NavbarLogin />} */}
-      <Navbar />
+      {isLoggedIn ? <Navbar /> : <NavbarLogin />}
       <div className="layout">
         <div className="side"></div>
         <div className="Mypage">

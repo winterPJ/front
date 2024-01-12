@@ -1,32 +1,38 @@
 .member {
-    background-color: #f9f9f9; 
-    padding: 15px;
+    background-color: #ffffff;
     border-radius: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); 
-    overflow-y: auto;
-    transition: box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    margin-bottom: 20px;
+    max-width: 300px;
 }
 
 .member h3 {
-    color: #333;
+    color: #37474f;
     margin-bottom: 15px;
-    text-align: center;
-    font-size: 1.3em;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 15px;
+    font-size: 1.5em;
+    font-weight: 600;
+    text-align: left;
+    border-bottom: 2px solid #4fc3f7;
+    padding-bottom: 5px;
 }
 
 .member ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+    list-style: none;
+    padding-left: 0;
 }
 
 .member li {
-    background-color: #ffffff;
-    padding: 15px;
-    margin-bottom: 10px;
+    background-color: #f8f8f8;
+    padding: 12px;
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.member li:hover {
+    background-color: #e1f5fe;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    transform: translateY(-3px);
 }

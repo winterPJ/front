@@ -8,24 +8,24 @@ function Posting() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const postData = {
-            title: title,
-            content: content
-        };
-
-        fetch("http://your-api-endpoint.com/posts", {
+    
+        fetch("http://back.mongjo.xyz/post/create", {
             method: 'POST',
+            credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(postData)
+            body: JSON.stringify({
+                title : title,
+                body: content
+            })
         })
         .then(response => response.json())
         .then(data => {
-            console.log("글 작성 완료:", data);
+            alert(data.data);
         })
         .catch(error => {
-            console.error("글 작성 실패:", error);
+            alert("글 작성 실패:", error);
         });
     };
 
