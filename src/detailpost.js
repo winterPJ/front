@@ -162,18 +162,20 @@ function DetailPost() {
                   ))}
                 </ul>
               </div>
-              <div className="commentForm">
-                <form className="formArea">
-                  <textarea
-                    className="commentArea"
-                    placeholder="댓글을 입력하세요."
-                    onChange={(e) => setNewComment(e.target.value)}
-                  />
-                  <button className="commentBtn" type="submit">
-                    등록
-                  </button>
-                </form>
-              </div>
+              {isLoggedIn && (
+                <div className="commentForm">
+                  <form className="formArea">
+                    <textarea
+                      className="commentArea"
+                      placeholder="댓글을 입력하세요."
+                      onChange={(e) => setNewComment(e.target.value)}
+                    />
+                    <button className="commentBtn" type="submit">
+                      등록
+                    </button>
+                  </form>
+                </div>
+              )}
             </div>
           ) : (
             <p>Loading...</p>
