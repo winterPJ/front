@@ -89,10 +89,6 @@ function DetailPost() {
     })
       .then((res) => res.json())
       .then((res) => setCanEdit(res.success));
-
-    if (post) {
-      checkEditPermission();
-    }
   }, [post, postId]);
 
   const handleEditClick = () => {
