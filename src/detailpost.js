@@ -13,6 +13,7 @@ function DetailPost() {
   const [canEdit, setCanEdit] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+  const [newComment, setNewComment] = useState("");
   const { postId } = useParams();
 
   useEffect(() => {
@@ -88,7 +89,10 @@ function DetailPost() {
       body: JSON.stringify({ post_id: postId }),
     })
       .then((res) => res.json())
-      .then((res) => setCanEdit(res.success));
+      .then((res) => {
+        setCanEdit(res.success);
+        console.log(res);
+      });
   }, [post, postId]);
 
   const handleEditClick = () => {
