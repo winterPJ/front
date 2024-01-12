@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import NavbarLogin from "./navbarlogin";
 import Navbar from "./navbar";
 import "./ProfileInfo.css";
 
@@ -10,9 +9,8 @@ export default function ProfileInfo(props) {
   const [nickname, setNickname] = useState("");
   const [post_cnt, setPost] = useState("");
   const [comment_cnt, setCount] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-
   const navigate = useNavigate();
+
   const handleLogout = () => {
     fetch("http://back.mongjo.xyz/user/logout",
     {
@@ -53,7 +51,7 @@ export default function ProfileInfo(props) {
 
   return (
     <div>
-      {isLoggedIn ? <Navbar /> : <NavbarLogin />}
+      <Navbar />
       <div className="layout">
         <div className="side"></div>
         <div className="Mypage">

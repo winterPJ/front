@@ -90,19 +90,24 @@ function MainPage() {
 
   return (
     <div>
-      {isLoggedIn ? <Navbar /> : <NavbarLogin />}
-
+        {isLoggedIn ? <Navbar /> : <NavbarLogin />}
       <div className="pageLayout">
         <MemberList />
         <div className="mainContent">
           <h3>게시글 현황</h3>
           {Array.isArray(posts) &&
             posts.map((post) => (
+<<<<<<< HEAD
               <div
                 key={post.id}
                 className="post"
                 onClick={() => goToDetailPage(post.id, post.user_id)}
               >
+=======
+              <div key={post.id}
+                   className="post"
+                   onClick={() => goToDetailPage(post.id)}>
+>>>>>>> 55cf94976ec7c1f18cbd5dba18e45da439ee6ce3
                 <h4>{post.title}</h4>
                 <p>{post.body}</p>
                 <div className="commentCount">댓글 수: {post.comment_cnt}</div>

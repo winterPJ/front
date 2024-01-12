@@ -3,13 +3,31 @@ import { useParams } from 'react-router-dom';
 import HotPosts from './hotpost';
 import MemberList from './memberlist';
 import Navbar from './navbar';
+import NavbarLogin from './navbarlogin';
 import "./detailpost.css";
 
 function DetailPost() {
     const [post, setPost] = useState(null);
     const [nickname, setNickname] = useState('');
     const [comments, setComments] = useState([]);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const { postId } = useParams();
+
+    useEffect(() => {
+        fetch("http://back.mongjo.xyz/user/check", {
+          method: "GET",
+          credentials: "include",
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            console.log(res);
+            setIsLoggedIn(res["success"]);
+          })
+          .catch((error) => {
+            console.error("Checking login status failed:", error);
+            setIsLoggedIn(false);
+          });
+      }, []);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -52,7 +70,7 @@ function DetailPost() {
 
 return (
     <div>
-        <Navbar />
+        {isLoggedIn ? <Navbar /> : <NavbarLogin />}
         <div className="pageLayout">
             <MemberList />
             <div className="mainContent">
