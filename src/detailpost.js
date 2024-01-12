@@ -16,6 +16,7 @@ function DetailPost() {
   const { postId } = useParams();
   const [newComment, setNewComment] = useState("");
   const [commentUser, setCommentUser] = useState("");
+  const [commentUserID, setCommentUserID] = useState("");
 
   useEffect(() => {
     fetch("http://back.mongjo.xyz/user/check", {
@@ -155,24 +156,12 @@ function DetailPost() {
               <div className="commentsSection">
                 <h5>댓글</h5>
                 <ul>
-                  {comments.map(
-                    (comment, index) => (
-                      fetch(`http://back.mongjo.xyz/user/${comment.user_id}`)
-                        .then((res) => res.json())
-                        .then((res) => {
-                          setCommentUser(res.nickname);
-                        }),
-                      (
-                        <li key={index} className="commentBox">
-                          <p>작성자 : {commentUser}</p>
-                          <p>{comment.body}</p>
-                          <span className="commentTime">
-                            {comment.created_at}
-                          </span>
-                        </li>
-                      )
-                    )
-                  )}
+                  {comments.map((comment, index) => (
+                    <li key={index} className="commentBox">
+                      <p>{comment.body}</p>
+                      <span className="commentTime">{comment.created_at}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
               {isLoggedIn && (
