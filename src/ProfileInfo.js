@@ -21,6 +21,15 @@ export default function ProfileInfo(props) {
     setCount("");
     setIsLoggedIn(false);
 
+    fetch("http://back.mongjo.xyz/user/logout", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        alert(res.data);
+      });
+
     navigate("/");
   };
 
