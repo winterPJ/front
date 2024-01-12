@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import NavbarLogin from "./navbarlogin";
 import Navbar from "./navbar";
 import "./ProfileInfo.css";
 
@@ -9,21 +10,28 @@ export default function ProfileInfo(props) {
   const [nickname, setNickname] = useState("");
   const [post_cnt, setPost] = useState("");
   const [comment_cnt, setCount] = useState("");
-  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
+  const navigate = useNavigate();
   const handleLogout = () => {
-    fetch("http://back.mongjo.xyz/user/logout",
-    {
-      method: "POST",
-      credentials: "include"
-    }).then((res) => res.json())
-    .then((res) => alert(res.data))
-    .catch((error) => alert(error))
+    setEmail("");
+    setId("");
+    setNickname("");
+    setPost("");
+    setCount("");
+    setIsLoggedIn(false);
+
     navigate("/");
   };
 
   useEffect(() => {
-    fetch("http://back.mongjo.xyz/user/13")
+    fetch("http://back.mongjo.xyz/user/get/info", {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setEmail(data.email);
@@ -33,7 +41,7 @@ export default function ProfileInfo(props) {
         setCount(data.comment_cnt);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        console.error("데이터를 불러오는 중 에러 발생:", error);
       });
   }, []);
 
@@ -51,7 +59,7 @@ export default function ProfileInfo(props) {
 
   return (
     <div>
-      <Navbar />
+      {isLoggedIn ? <Navbar /> : <NavbarLogin />}
       <div className="layout">
         <div className="side"></div>
         <div className="Mypage">
