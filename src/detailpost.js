@@ -117,7 +117,7 @@ function DetailPost() {
   };
 
   const handleCreateComment = () => {
-    fetch(`http://back.mongjo.xyz/post/comment/create`, {
+    fetch(`http://back.mongjo.xyz/comment/create`, {
       method: "POST",
       credentials: "include",
       headers: {
