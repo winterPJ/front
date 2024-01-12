@@ -94,6 +94,8 @@ function MainPage() {
         {isLoggedIn ? <Navbar /> : <NavbarLogin />}
       </div>
 
+      
+
       <div className="pageLayout">
         <div className="memberList">
           <MemberList />

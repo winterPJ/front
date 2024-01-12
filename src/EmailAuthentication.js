@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './EmailAuthentication.css';
+import { useNavigate } from "react-router-dom";
 
 export default function EmailAuthentication() {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const email = searchParams.get('email');
     const [auth_code, setAuth_code] = useState("");
+
+    const navigate = useNavigate();
 
     const sendAuthCode = () => {
         fetch(`http://back.mongjo.xyz/auth/send`, {
@@ -44,22 +47,29 @@ export default function EmailAuthentication() {
         .then((res) => res.json())
         .then((res) => {
             console.log(res);
-            alert(res["data"]);
+            if (res["success"] == false) {
+                alert(res["data"]);
+            } else {
+                alert(res["data"]);
+                navigate("/");
+            }
         });
     };
 
     return (
-        <div className="container">
-            <h2>이메일 인증</h2>
-            <div className="row">
-                {/* Display the email */}
-                <p>Email: {email}</p>
-                <input id="sendCodeButton" type="submit" value="인증코드 발송" onClick={sendAuthCode}/>
+        <div className='body'>
+            <div className="container">
+                <h2>이메일 인증</h2>
+                <div className="row">
+                    {/* Display the email */}
+                    <p>Email: {email}</p>
+                    <input id="sendCodeButton" type="submit" value="인증코드 발송" onClick={sendAuthCode}/>
+                </div>
+                <div className="auth-code-input">
+                    <input type="text" placeholder="Auth_code" onChange={(e) => setAuth_code(e.target.value)}/>
+                </div>
+                <input id="submitButton" type="submit" value="완료" onClick={Completion}/>
             </div>
-            <div className="auth-code-input">
-                <input type="text" placeholder="Auth_code" onChange={(e) => setAuth_code(e.target.value)}/>
-            </div>
-            <input id="submitButton" type="submit" value="완료" onClick={Completion}/>
-        </div>
+        </div> 
     );
 }
