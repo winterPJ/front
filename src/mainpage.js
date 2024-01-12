@@ -44,24 +44,24 @@ function MainPage() {
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
-        
-      })
+      });
     navigate("/posting");
   };
 
-  const goToDetailPage = (postId, userId) => { 
-    fetch("http://back.mongjo.xyz/user/matching/post",{
-        method : "POST",
-        credentials : "include",
-        headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id : postId,
-            user_id : userId,
-          }),
-    }).then((res) => res.json())
-    .then((res)=> console.log(res.success))
+  const goToDetailPage = (postId, userId) => {
+    fetch("http://back.mongjo.xyz/user/matching/post", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: postId,
+        user_id: userId,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => console.log(res.success));
     navigate(`/detailpost/${postId}`);
   };
 
@@ -89,25 +89,24 @@ function MainPage() {
   };
 
   return (
-    <div>
+    <div className="mainLayout">
+      <div className="navbarLayout">
         {isLoggedIn ? <Navbar /> : <NavbarLogin />}
+      </div>
+
       <div className="pageLayout">
-        <MemberList />
+        <div className="memberList">
+          <MemberList />
+        </div>
         <div className="mainContent">
           <h3>게시글 현황</h3>
           {Array.isArray(posts) &&
             posts.map((post) => (
-<<<<<<< HEAD
               <div
                 key={post.id}
                 className="post"
-                onClick={() => goToDetailPage(post.id, post.user_id)}
+                onClick={() => goToDetailPage(post.id)}
               >
-=======
-              <div key={post.id}
-                   className="post"
-                   onClick={() => goToDetailPage(post.id)}>
->>>>>>> 55cf94976ec7c1f18cbd5dba18e45da439ee6ce3
                 <h4>{post.title}</h4>
                 <p>{post.body}</p>
                 <div className="commentCount">댓글 수: {post.comment_cnt}</div>
@@ -122,6 +121,7 @@ function MainPage() {
             </div>
           )}
         </div>
+
         <HotPosts />
       </div>
     </div>
