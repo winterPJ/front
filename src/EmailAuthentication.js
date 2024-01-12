@@ -57,17 +57,19 @@ export default function EmailAuthentication() {
     };
 
     return (
-        <div className="container">
-            <h2>이메일 인증</h2>
-            <div className="row">
-                {/* Display the email */}
-                <p>Email: {email}</p>
-                <input id="sendCodeButton" type="submit" value="인증코드 발송" onClick={sendAuthCode}/>
+        <div className='body'>
+            <div className="container">
+                <h2>이메일 인증</h2>
+                <div className="row">
+                    {/* Display the email */}
+                    <p>Email: {email}</p>
+                    <input id="sendCodeButton" type="submit" value="인증코드 발송" onClick={sendAuthCode}/>
+                </div>
+                <div className="auth-code-input">
+                    <input type="text" placeholder="Auth_code" onChange={(e) => setAuth_code(e.target.value)}/>
+                </div>
+                <input id="submitButton" type="submit" value="완료" onClick={Completion}/>
             </div>
-            <div className="auth-code-input">
-                <input type="text" placeholder="Auth_code" onChange={(e) => setAuth_code(e.target.value)}/>
-            </div>
-            <input id="submitButton" type="submit" value="완료" onClick={Completion}/>
-        </div>
+        </div> 
     );
 }
