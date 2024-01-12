@@ -10,7 +10,7 @@ function MemberList() {
       .then((data) => {
         setMembers(data);
       })
-      .catch((error) => console.error("Fetching member failed:", error));
+      .catch((error) => console.error("Fetching member failed :", error));
   }, []);
 
   return (
