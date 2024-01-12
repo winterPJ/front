@@ -32,7 +32,6 @@ export default function InfoEdit() {
   const handleNicknameSubmit = async (e) => {
     e.preventDefault();
   
-    // Additional validation for empty nickname
     if (!nickname) {
         
       console.error("Nickname cannot be empty.");
@@ -50,19 +49,16 @@ export default function InfoEdit() {
             nickname: nickname,
           }),
         });
-      
+    
         const res = await response.json();
         console.log(res);
-      
-        if (res.success === false) {
-          alert(res.data);
-        } else {
-          alert(res.data);
-        }
+    
+        alert(res.data);
+        
       } catch (error) {
         console.error("Error during fetch:", error);
       }
-    }
+    };
 
   const handlePasswordSubmit = async (e) => {
     e.preventDefault();
@@ -74,29 +70,26 @@ export default function InfoEdit() {
     }
 
     try {
-      const response = await fetch("http://back.mongjo.xyz/user/changeinfo/password", {
-        method: "POST",
-        credential : "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          password: password,
-        }),
-      });
-
-      const res = await response.json();
+        const response = await fetch("http://back.mongjo.xyz/user/changeinfo/password", {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            password: password,
+          }),
+        });
+    
+        const res = await response.json();
         console.log(res);
-      
-        if (res.success === false) {
-          alert(res.data);
-        } else {
-          alert(res.data);
-        }
+        
+        alert(res.data);
+
       } catch (error) {
         console.error("Error during fetch:", error);
       }
-  };
+    };
 
   return (
     <div>
