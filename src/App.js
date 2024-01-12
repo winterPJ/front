@@ -8,6 +8,7 @@ import DetailPost from "./detailpost";
 import ProfileInfo from "./ProfileInfo";
 import EmailAuthentication from "./EmailAuthentication";
 import InfoEdit from "./InfoEdit";
+import EditPost from "./editpost";
 
 const App = () => {
   useEffect(() => {
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/profileinfo" element={<ProfileInfo />} />
         <Route path="/emailauthentication" element={<EmailAuthentication />} />
         <Route path="/InfoEdit" element={<InfoEdit />} />
+        <Route path="/editpost" element={<EditPost />} />
       </Routes>
     </div>
   );

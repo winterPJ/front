@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import HotPosts from './hotpost';
 import MemberList from './memberlist';
 import Navbar from './navbar';
@@ -10,24 +10,26 @@ function DetailPost() {
     const [post, setPost] = useState(null);
     const [nickname, setNickname] = useState('');
     const [comments, setComments] = useState([]);
+    const [canEdit, setCanEdit] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const navigate = useNavigate();
     const { postId } = useParams();
 
     useEffect(() => {
         fetch("http://back.mongjo.xyz/user/check", {
-          method: "GET",
-          credentials: "include",
+            method: "GET",
+            credentials: "include",
         })
-          .then((res) => res.json())
-          .then((res) => {
+        .then((res) => res.json())
+        .then((res) => {
             console.log(res);
             setIsLoggedIn(res["success"]);
-          })
-          .catch((error) => {
+        })
+        .catch((error) => {
             console.error("Checking login status failed:", error);
             setIsLoggedIn(false);
-          });
-      }, []);
+        });
+    }, []);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -68,43 +70,76 @@ function DetailPost() {
         fetchData();
     }, [postId]);
 
-return (
-    <div>
-        {isLoggedIn ? <Navbar /> : <NavbarLogin />}
-        <div className="pageLayout">
-            <MemberList />
-            <div className="mainContent">
-                {post ? (
-                    <div>
-                        <div className="titleBox">
-                            <h4>{post.title}</h4>
-                            <span className="author">글쓴이: {nickname}</span>
-                            <span className="postTime">{post.created_at}</span>
-                        </div>
-                        <div className="contentBox">
-                            <p>{post.body}</p>
-                        </div>
-                        <div className="commentsSection">
-                            <h5>댓글</h5>
-                            <ul>
-                                {comments.map((comment, index) => (
-                                    <li key={index} className="commentBox">
-                                        <p>{comment.body}</p>
-                                        <span className="commentTime">{comment.created_at}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                ) : (
-                    <p>Loading...</p>
-                )}
-            </div>
-            <HotPosts />
-        </div>
-    </div>
-);
+    useEffect(() => {
+        const checkEditPermission = async () => {
+            try {
+                const response = await fetch(`http://back.mongjo.xyz/user/matching/post`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({ post_id: postId })
+                });
+                const data = await response.json();
+                if (data.success) {
+                    setCanEdit(true);
+                }
+            } catch (error) {
+                console.error("Checking edit permission failed:", error);
+            }
+        };
 
+        if (post) {
+            checkEditPermission();
+        }
+    }, [post, postId]);
+
+    const handleEditClick = () => {
+        navigate(`/editpost/${postId}`);
+    };
+
+    return (
+        <div>
+            {isLoggedIn ? <Navbar /> : <NavbarLogin />}
+            <div className="pageLayout">
+                <MemberList />
+                <div className="mainContent">
+                    {post ? (
+                        <div>
+                            <div className="titleBox">
+                                <h4>{post.title}</h4>
+                                <div className="postDetails">
+                                    <span className="postTime">{post.created_at}</span>
+                                    <span className="author">글쓴이: {nickname}</span>
+                                    {canEdit && (
+                                        <button onClick={handleEditClick}>수정하기</button>
+                                    )}
+                                </div>
+                            </div>
+                            <div className="contentBox">
+                                <p>{post.body}</p>
+                            </div>
+                            <div className="commentsSection">
+                                <h5>댓글</h5>
+                                <ul>
+                                    {comments.map((comment, index) => (
+                                        <li key={index} className="commentBox">
+                                            <p>{comment.body}</p>
+                                            <span className="commentTime">{comment.created_at}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    ) : (
+                        <p>Loading...</p>
+                    )}
+                </div>
+                <HotPosts />
+            </div>
+        </div>
+    );
 }
 
 export default DetailPost;

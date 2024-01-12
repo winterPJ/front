@@ -8,18 +8,18 @@ function Posting() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const postData = {
-            user_id : 14,
-            title: title,
-            body: content
-        };
+        
 
         fetch("http://back.mongjo.xyz/post/create", {
             method: 'POST',
+            credentials:'include',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(postData)
+            body: JSON.stringify({
+                title:title,
+                body : content,
+            })
         })
         .then(response => response.json())
         .then(data => {
