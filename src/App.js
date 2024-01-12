@@ -26,7 +26,7 @@ const App = () => {
         <Route path="/profileinfo" element={<ProfileInfo />} />
         <Route path="/emailauthentication" element={<EmailAuthentication />} />
         <Route path="/InfoEdit" element={<InfoEdit />} />
-        <Route path="/editpost" element={<EditPost />} />
+        <Route path="/editpost/:postId" element={<EditPost />} />
       </Routes>
     </div>
   );

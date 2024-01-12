@@ -38,13 +38,13 @@ function DetailPost() {
         console.log("Fetching post details for ID:", postId);
 
         const postResponse = await fetch(
-          `http://back.mongjo.xyz/post/${postId}`
+          `http://back.mongjo.xyz/post/${postId}` //${postId} 20
         );
         const postData = await postResponse.json();
 
         if (postData && postData.user_id) {
           const userResponse = await fetch(
-            `http://back.mongjo.xyz/user/${postData.user_id}`
+            `http://back.mongjo.xyz/user/${postData.user_id}` //${postData.user_id} 13
           );
           const userData = await userResponse.json();
 
@@ -53,7 +53,7 @@ function DetailPost() {
             setPost(postData);
 
             const commentsResponse = await fetch(
-              `http://back.mongjo.xyz/post/${postId}/comment`
+              `http://back.mongjo.xyz/post/${postId}/comment` //${postId} 20
             );
             const commentsData = await commentsResponse.json();
             if (commentsData) {

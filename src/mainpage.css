@@ -72,7 +72,7 @@
 }
 
 .writeButtonContainer {
-  position: absolute;
+  position: relative;
   right: 20px;
   top: 10px;
   z-index: 5;
