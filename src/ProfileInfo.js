@@ -13,7 +13,8 @@ export default function ProfileInfo(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const navigate = useNavigate();
-  const handleLogout = () => {
+  const handleLogout = (event) => {
+    event.preventDefault();
     setEmail("");
     setId("");
     setNickname("");
@@ -22,7 +23,7 @@ export default function ProfileInfo(props) {
     setIsLoggedIn(false);
 
     fetch("http://back.mongjo.xyz/user/logout", {
-      method: "GET",
+      method: "POST",
       credentials: "include",
     })
       .then((res) => res.json())
