@@ -13,33 +13,14 @@ export default function InfoEdit() {
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
 
-  const handleNicknameChange = (e) => {
-    setNickname(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
-    if (passwordMatchError) {
-      setPasswordMatchError(null);
-    }
-  };
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await fetch("http://back.mongjo.xyz/user/13");
-
-        if (response.ok) {
-          const userData = await response.json();
-          setNickname(userData.nickname);
-          setPassword(userData.password);
-        } else {
-          console.error("Failed to fetch user information.");
-        }
+        const response = await fetch("http://back.mongjo.xyz/user/get/info",{
+            method : "GET",
+            credentials : "include",
+        }).then((res) => res.json()).then((res) => res.nickname)
       } catch (error) {
         console.error("Error fetching user information:", error);
       }
@@ -51,7 +32,6 @@ export default function InfoEdit() {
   const handleNicknameSubmit = async (e) => {
     e.preventDefault();
   
-    // Additional validation for empty nickname
     if (!nickname) {
         
       console.error("Nickname cannot be empty.");
@@ -69,19 +49,16 @@ export default function InfoEdit() {
             nickname: nickname,
           }),
         });
-      
+    
         const res = await response.json();
         console.log(res);
-      
-        if (res.success === false) {
-          alert(res.data);
-        } else {
-          alert(res.data);
-        }
+    
+        alert(res.data);
+        
       } catch (error) {
         console.error("Error during fetch:", error);
       }
-    }
+    };
 
   const handlePasswordSubmit = async (e) => {
     e.preventDefault();
@@ -93,29 +70,26 @@ export default function InfoEdit() {
     }
 
     try {
-      const response = await fetch("http://back.mongjo.xyz/user/changeinfo/password", {
-        method: "POST",
-        credential : "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          password: password,
-        }),
-      });
-
-      const res = await response.json();
+        const response = await fetch("http://back.mongjo.xyz/user/changeinfo/password", {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            password: password,
+          }),
+        });
+    
+        const res = await response.json();
         console.log(res);
-      
-        if (res.success === false) {
-          alert(res.data);
-        } else {
-          alert(res.data);
-        }
+        
+        alert(res.data);
+
       } catch (error) {
         console.error("Error during fetch:", error);
       }
-  };
+    };
 
   return (
     <div>
@@ -126,7 +100,7 @@ export default function InfoEdit() {
                 <form className="edit" onSubmit={handleNicknameSubmit}>
                     <label>
                         Nickname:
-                        <input type="text" value={nickname || ''} onChange={handleNicknameChange} />
+                        <input type="text" value={nickname || ''} onChange={(e) => setNickname(e.target.value)} />
                     </label>
                     <br />
                     <input type="submit" value="닉네임 변경" />
@@ -134,12 +108,12 @@ export default function InfoEdit() {
                 <form className="edit" onSubmit={handlePasswordSubmit}>
                     <label>
                         Password:
-                        <input type="password" value={password || ''} onChange={handlePasswordChange} />
+                        <input type="password" value={password || ''} onChange={(e) => setPassword(e.target.value)} />
                     </label>
                     <br />
                     <label>
                         Confirm Password:
-                        <input type="password" value={confirmPassword || ''} onChange={handleConfirmPasswordChange} />
+                        <input type="password" value={confirmPassword || ''} onChange={(e) => setConfirmPassword(e.target.value)} />
                         {passwordMatchError && <p style={{ color: 'red' }}>{passwordMatchError}</p>} 
                     </label>
                     <br />
