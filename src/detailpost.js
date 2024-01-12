@@ -14,6 +14,7 @@ function DetailPost() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
   const { postId } = useParams();
+  const [newComment, setNewComment] = useState("");
 
   useEffect(() => {
     fetch("http://back.mongjo.xyz/user/check", {
@@ -110,6 +111,25 @@ function DetailPost() {
     navigate(`/editpost/${postId}`);
   };
 
+  const handleCreateComment = (event) => {
+    event.preventDefault();
+    fetch(`http://back.mongjo.xyz/comment/create`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        post_id: postId,
+        body: newComment,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => alert(res.data))
+      .then(() => navigate(`/detailpost/${postId}`))
+      .catch((error) => console.error("Creating comment failed:", error));
+  };
+
   return (
     <div>
       {isLoggedIn ? <Navbar /> : <NavbarLogin />}
@@ -141,6 +161,18 @@ function DetailPost() {
                     </li>
                   ))}
                 </ul>
+              </div>
+              <div className="commentForm">
+                <form className="formArea">
+                  <textarea
+                    className="commentArea"
+                    placeholder="댓글을 입력하세요."
+                    onChange={(e) => setNewComment(e.target.value)}
+                  />
+                  <button className="commentBtn" type="submit">
+                    등록
+                  </button>
+                </form>
               </div>
             </div>
           ) : (
