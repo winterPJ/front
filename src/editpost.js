@@ -49,31 +49,19 @@ function EditPost() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const response = await fetch(
-        `http://back.mongjo.xyz/post/update/${postId}`,
-        {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            title: title,
-            body: body,
-          }),
-        }
-      );
-      const data = await response.json();
-      if (data.success) {
-        alert("Post updated successfully");
-        navigate(`/detailpost/${postId}`);
-      } else {
-        alert("Failed to update post");
-      }
-    } catch (error) {
-      console.error("Error updating post", error);
-    }
+    fetch(`http://back.mongjo.xyz/post/update/${postId}`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: title,
+        body: body,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => alert(res.data));
   };
 
   if (loading) {
