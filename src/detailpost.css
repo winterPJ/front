@@ -103,6 +103,10 @@
   margin-bottom: 0;
 }
 
+.commentBox p {
+  padding-top: 50px;
+}
+
 .commentBox .commentTime {
   position: absolute;
   right: 10px;

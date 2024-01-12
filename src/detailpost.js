@@ -65,6 +65,7 @@ function DetailPost() {
                 return comment;
               });
               setComments(formattedComments);
+              console.log(comments);
             }
           } else {
             console.error("No user data found.");
