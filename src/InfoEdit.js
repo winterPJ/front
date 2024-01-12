@@ -53,6 +53,7 @@ export default function InfoEdit() {
   
     // Additional validation for empty nickname
     if (!nickname) {
+        
       console.error("Nickname cannot be empty.");
       return;
     }

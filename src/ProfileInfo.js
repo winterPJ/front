@@ -13,8 +13,8 @@ export default function ProfileInfo(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const navigate = useNavigate();
-  const handleLogout = () => {
-    
+  const handleLogout = () => { 
+
     setEmail('');
     setId('');
     setNickname('');
