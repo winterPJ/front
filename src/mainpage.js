@@ -94,8 +94,6 @@ function MainPage() {
         {isLoggedIn ? <Navbar /> : <NavbarLogin />}
       </div>
 
-      
-
       <div className="pageLayout">
         <div className="memberList">
           <MemberList />
@@ -123,8 +121,9 @@ function MainPage() {
             </div>
           )}
         </div>
-
-        <HotPosts />
+        <div className="hotPosts">
+          <HotPosts />
+        </div>
       </div>
     </div>
   );
