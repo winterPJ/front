@@ -8,7 +8,28 @@ function Posting() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const handleSubmit = (event) => {
+      event.preventDefault();
 
+      fetch("http://back.mongjo.xyz/post/create", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: title,
+          body: content,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          alert(data.data);
+        })
+        .catch((error) => {
+          alert("글 작성 실패:", error);
+        });
+    };
     fetch("http://back.mongjo.xyz/post/create", {
       method: "POST",
       credentials: "include",

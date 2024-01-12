@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import HotPosts from "./hotpost";
 import MemberList from "./memberlist";
 import Navbar from "./navbar";
@@ -10,7 +10,9 @@ function DetailPost() {
   const [post, setPost] = useState(null);
   const [nickname, setNickname] = useState("");
   const [comments, setComments] = useState([]);
+  const [canEdit, setCanEdit] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
   const { postId } = useParams();
 
   useEffect(() => {
@@ -76,6 +78,38 @@ function DetailPost() {
     fetchData();
   }, [postId]);
 
+  useEffect(() => {
+    const checkEditPermission = async () => {
+      try {
+        const response = await fetch(
+          `http://back.mongjo.xyz/user/matching/post`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify({ post_id: postId }),
+          }
+        );
+        const data = await response.json();
+        if (data.success) {
+          setCanEdit(true);
+        }
+      } catch (error) {
+        console.error("Checking edit permission failed:", error);
+      }
+    };
+
+    if (post) {
+      checkEditPermission();
+    }
+  }, [post, postId]);
+
+  const handleEditClick = () => {
+    navigate(`/editpost/${postId}`);
+  };
+
   return (
     <div>
       {isLoggedIn ? <Navbar /> : <NavbarLogin />}
@@ -86,8 +120,13 @@ function DetailPost() {
             <div>
               <div className="titleBox">
                 <h4>{post.title}</h4>
-                <span className="author">글쓴이: {nickname}</span>
-                <span className="postTime">{post.created_at}</span>
+                <div className="postDetails">
+                  <span className="postTime">{post.created_at}</span>
+                  <span className="author">글쓴이: {nickname}</span>
+                  {canEdit && (
+                    <button onClick={handleEditClick}>수정하기</button>
+                  )}
+                </div>
               </div>
               <div className="contentBox">
                 <p>{post.body}</p>
