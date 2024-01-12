@@ -25,6 +25,22 @@ export default function ProfileInfo(props) {
   };
 
   useEffect(() => {
+    fetch("http://back.mongjo.xyz/user/check", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        setIsLoggedIn(res["success"]);
+      })
+      .catch((error) => {
+        console.error("Checking login status failed:", error);
+        setIsLoggedIn(false);
+      });
+  }, []);
+
+  useEffect(() => {
     fetch("http://back.mongjo.xyz/user/13")
       .then((res) => res.json())
       .then((data) => {

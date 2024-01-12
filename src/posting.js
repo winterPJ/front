@@ -1,10 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from './navbar';
+import NavbarLogin from './navbarlogin';
 import './posting.css';
 
 function Posting() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        fetch("http://back.mongjo.xyz/user/check", {
+          method: "GET",
+          credentials: "include",
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            console.log(res);
+            setIsLoggedIn(res["success"]);
+          })
+          .catch((error) => {
+            console.error("Checking login status failed:", error);
+            setIsLoggedIn(false);
+          });
+      }, []);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -31,7 +49,8 @@ function Posting() {
 
     return (
         <div>
-            <Navbar />
+            {isLoggedIn ? <Navbar /> : <NavbarLogin />}
+            
             <div className="postingContainer">
                 <h2>글 작성</h2>
                 <form onSubmit={handleSubmit} className="postingForm">
