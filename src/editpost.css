@@ -1,0 +1,55 @@
+.editPostContainer {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.editPostForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.editPostForm label {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    color: #333;
+}
+
+.editPostForm input[type="text"],
+.editPostForm textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    margin-top: 5px;
+}
+
+.editPostForm textarea {
+    height: 200px;
+    resize: vertical;
+}
+
+.editPostForm button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.editPostForm button:hover {
+    background-color: #45a049;
+}
+
+h2 {
+    text-align: center;
+    color: #37474f;
+}

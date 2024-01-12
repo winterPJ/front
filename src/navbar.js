@@ -4,7 +4,6 @@ import "./navbar.css";
 
 function Navbar() {
     const navigate = useNavigate();
-    /* const username = localStorage.getItem('username'); */
 
     const goToMainPage = () => {
         navigate('/');
@@ -13,12 +12,6 @@ function Navbar() {
     const goToProfile = () => {
         navigate('/profileinfo');
     };
-
-    /* const handleLogout = () => {
-        localStorage.removeItem('username'); // 로컬 스토리지에서 사용자 이름 제거
-        navigate('/'); // 메인 페이지로 이동
-    };
-    */
 
     return (
         <nav className="navbar">
